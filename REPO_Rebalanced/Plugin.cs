@@ -1,17 +1,23 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
+using HarmonyLib;
+using System.Reflection;
 
-namespace REPO_Rebalanced;
-
-[BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
-public class Plugin : BaseUnityPlugin
+namespace REPO_Rebalanced
 {
-    internal static new ManualLogSource Logger;
-
-    private void Awake()
+    [BepInPlugin("com.fishyorch.rebalanced", "REPO Rebalanced", "0.0.1")]
+    public class Plugin : BaseUnityPlugin
     {
-        // Plugin startup logic
-        Logger = base.Logger;
-        Logger.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
+        internal static new ManualLogSource Logger;
+
+        private void Awake()
+        {
+            Logger = base.Logger;
+            Logger.LogInfo($"Plugin REPO Rebalanced is loaded!");
+
+            // Aplica todos los Harmony patches de este assembly
+            Harmony harmony = new Harmony("com.fishyorch.rebalanced");
+            harmony.PatchAll(Assembly.GetExecutingAssembly());
+        }
     }
 }
