@@ -10,9 +10,9 @@ namespace REPO_Rebalanced;
 [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 public class Plugin : BaseUnityPlugin
 {
-    internal static new ManualLogSource Logger;
+    internal new static ManualLogSource Logger;
     
-    internal static new ConfigFile Config;
+    internal new static ConfigFile Config;
     
     public static string BuildGUID => Assembly.GetExecutingAssembly().ManifestModule.ModuleVersionId.ToString();
 
