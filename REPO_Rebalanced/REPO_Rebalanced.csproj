@@ -27,6 +27,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="libs\" />
+        <Reference Include="Assembly-CSharp">
+            <HintPath>libs\Assembly-CSharp.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
     </ItemGroup>
 </Project>
