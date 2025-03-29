@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace REPO_Rebalanced
 {
-    [BepInPlugin("com.fishyorch.rebalanced", "REPO Rebalanced", "0.0.1")]
+    [BepInPlugin("com.fishyorch.rebalanced", "REPO Rebalanced", "0.0.2")]
     public class Plugin : BaseUnityPlugin
     {
         internal static new ManualLogSource Logger;
