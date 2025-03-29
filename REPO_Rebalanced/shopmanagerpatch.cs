@@ -1,22 +1,26 @@
 using HarmonyLib;
 using System.Collections.Generic;
+using System.Linq;
 
+namespace REPO_Rebalanced;
 [HarmonyPatch(typeof(ShopManager), "GetAllItemsFromStatsManager")]
 public class ShopManagerPatch
 {
     static void Postfix(ShopManager __instance)
     {
-        // Itera por todos los ítems en la tienda
-        foreach (var item in StatsManager.instance.itemDictionary.Values)
-        {
-            // Si el nombre del ítem es "shotgun", lo agregamos manualmente a la tienda
-            if (item.itemAssetName == "shotgun")
-            {
-                Plugin.Logger.LogInfo("Agregando shotgun extra a la tienda!");
+        var shotgun = StatsManager.instance.itemDictionary.Values
+            .FirstOrDefault(item => item.itemAssetName == "Item Gun Shotgun");
 
-                // Asegúrate de agregarlo a la lista adecuada
-                __instance.potentialItems.Add(item); 
-            }
+        if (shotgun == null)
+        {
+            Plugin.Logger.LogWarning("No se encontró la shotgun en itemDictionary.");
+            return;
         }
+
+        // Agregar la shotgun dos veces para que pueda aparecer hasta 2 veces
+        __instance.potentialItems.Add(shotgun);
+        __instance.potentialItems.Add(shotgun);
+
+        Plugin.Logger.LogInfo("Se agregaron 2 instancias de la shotgun a la tienda.");
     }
 }
