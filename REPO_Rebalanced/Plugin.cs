@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using BepInEx;
+using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
 using UnityEngine;
@@ -11,12 +12,16 @@ public class Plugin : BaseUnityPlugin
 {
     internal static new ManualLogSource Logger;
     
+    internal static new ConfigFile Config;
+    
     public static string BuildGUID => Assembly.GetExecutingAssembly().ManifestModule.ModuleVersionId.ToString();
 
     private void Awake()
     {
         Logger = base.Logger;
         Logger.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
+        
+        Config = new ConfigFile("Bepinex/config/REPO_Rebalanced.cfg", true);
         
         new Harmony("patch.repo_rebalanced").PatchAll();
     }
